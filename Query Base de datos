@@ -1,0 +1,89 @@
+-- Crear tabla de usuarios
+CREATE TABLE users (
+    id INT PRIMARY KEY ,
+    name VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+-- Crear tabla de sucursales
+CREATE TABLE branch (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    address VARCHAR(100) NOT NULL
+);
+
+-- Crear tabla de colaboradores
+CREATE TABLE employee (
+    id INT PRIMARY KEY,
+    fristname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    address VARCHAR(100) NOT NULL
+);
+
+-- Crear tabla de asignaciones
+CREATE TABLE employee_branch (
+    id INT PRIMARY KEY,
+    employee_id INT NOT NULL,
+    branch_id  INT NOT NULL,
+    distance_km FLOAT NOT NULL,
+    FOREIGN KEY (employee_id) REFERENCES employee(id),
+    FOREIGN KEY (branch_id) REFERENCES branch(id),
+    UNIQUE (employee_id, branch_id)
+);
+
+-- Crear tabla de transportistas
+CREATE TABLE driver (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    rate_km FLOAT NOT NULL
+);
+
+-- Crear tabla de viajes
+CREATE TABLE trips (
+    id INT PRIMARY KEY,
+    branch_id INT NOT NULL,
+    driver_id INT NOT NULL,
+    trip_date DATE NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branch(id),
+    FOREIGN KEY (driver_id) REFERENCES driver(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Crear tabla de detalles de viajes
+CREATE TABLE trips_detail(
+    id INT PRIMARY KEY ,
+    trip_id INT NOT NULL,
+    employee_id INT NOT NULL,
+    distance_km FLOAT NOT NULL,
+    FOREIGN KEY (trip_id) REFERENCES trips(id),
+    FOREIGN KEY (employee_id) REFERENCES employee(id)
+);
+
+
+INSERT INTO employee (id, fristname, lastname, address)
+VALUES (1, 'Juan', 'Pérez', '123 Street, City');
+
+INSERT INTO employee (id, fristname, lastname, address)
+VALUES (2, 'María', 'González', '456 Street, City');
+
+INSERT INTO branch (id, name, address)
+VALUES (1, 'Branch A', '789 Street, City');
+
+INSERT INTO branch (id, name, address)
+VALUES (2, 'Branch B', '012 Street, City');
+
+INSERT INTO employee_branch (id,employee_id, branch_id, distance_km)
+VALUES (1,1, 1, 10.5);
+
+INSERT INTO employee_branch (id,employee_id, branch_id, distance_km)
+VALUES (2,1, 2, 20.3);
+
+INSERT INTO employee_branch (id,employee_id, branch_id, distance_km)
+VALUES (3,2, 1, 5.2);
+
+INSERT INTO users (id,name, password, role)
+VALUES (1,'Gerente', '1234', 'Genrente');
+
+select * from employee_branch
