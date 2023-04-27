@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Sistema_de_Viajes_FarSiman.Models.Employee_Branch>
+@{
+    ViewData["Title"] = "CreateDetailTrip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalle de Viaje</h1>
+
+<hr />
+<div class="row">
+    <ul class="col-md-4">
+        <form asp-action="CreateDetailTrip">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+             <div class="form-group">
+                  <label class="control-label">Lista de ID de empleados disponibles para viajar</label>
+                 <ul class="list-group" style="width:300px; height: 100px; overflow-y: scroll;">
+                   @foreach (var item in Model)
+                        {  
+                          <li class="list-group-item" style="padding: 0.8rem 2rem;">
+                            <input value=@item.employee_id name="myCheckbox" type="checkbox" class="form-check-input me-1" />   @Html.DisplayFor(modelItem => item.employee_id)
+                            <br />
+                            
+                          </li>   
+                        }    
+                 </ul>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        </ul>
+ </div>
+
+
+@*<div>
+    <a asp-action="CreateTrip">Back to List</a>
+</div>*@
+
+
+@*@if (ViewBag.ShowSuccessMessage ?? false)
+{
+     <div class="alert alert-success" role="alert">
+        ¡Guardado exitosamente en la base de datos!
+    </div>
+}*@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+     <script>
+        var checkbox = document.getElementById("myCheckbox");
+        var value = checkbox.checked ? checkbox.value : "";
+        // Aquí puedes agregar más código JavaScript
+    </script>
+}

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Sistema_de_Viajes_FarSiman.Models.Employee_Branch>
+
+@{
+    ViewData["Title"] = "CreateEmployeBranch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1> Empleados por sucursal</h1>
+
+
+<p>
+    <a asp-area="" asp-action="CreateEmployeBranch">Create New</a>
+</p>
+
+<table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm " cellspacing="0"
+  width="100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employee_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.branch_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.distance_km)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employee_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.branch_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.distance_km)
+            </td>
+            <td>
+                <a asp-action="EditEmployeBranch" asp-route-id="@item.id">Editar Tabla</a> |
+                <a asp-action="DeleteEmployeBranch" asp-route-id="@item.id">Borrar Tabla</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
